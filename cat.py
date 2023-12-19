@@ -32,14 +32,13 @@ def main(root_dir: str):
             translated_page = PageObject.create_blank_page(None, pages[0].mediabox.width*2, pages[0].mediabox.height*2)
 
             for i in range(4):
-                pages[i].add_text("Page %d" % (p*4+i+1), 10, 10)
-                pages[i].add_transformation(Transformation().scale(1).translate((i%2)*pages[i].mediabox.width, (1-i//2)*pages[i].mediabox.height), expand=True)
+                pages[i].add_transformation(Transformation().scale(1).translate(float((i%2)*pages[i].mediabox.width), float((1-i//2)*pages[i].mediabox.height)), expand=True)
                 
                 translated_page.merge_page(pages[i])
             
             writer.add_page(translated_page)
 
-        with open(os.path.join('out/', fname), 'wb') as f:
+        with open(os.path.join(root_dir, 'out', fname), 'wb') as f:
             writer.write(f)
 
 
